@@ -63,30 +63,29 @@ What is a case? Which columns are Quant / Qual? What is missing?
 
 ### 2. Ask
 Possibly can answer:
-1.Who smokes more, male or female?
-2.How does the age distribution differ between patients who survived and patients who died?
-3.Is the blood pressure of people who die higer or lower than the people who live 
+1. Who smokes more, male or female?
+2. How does the age distribution differ between patients who survived and patients who died?
+3. Is the blood pressure of people who die higer or lower than the people who live 
 4. Do patients with anaemia die more often? 
 5. Does sodium level in the blood differ between patients who survived and died?
 6. Is there a difference in heart-damage between diabetics and non-diabetics?
 7. Is High blood pressure affected by age?
-8.Does a weaker heart mean patients don't survive as long?
+8. Does a weaker heart mean patients don't survive as long?
 
 Possibly cannot answer:
-1.Does getting older cause death in heart failure patients? (The data does not show that one causes the other)
-2.What happened to patients after the study ended? (we don't know about later outcomes.)
+1. Does getting older cause death in heart failure patients? (The data does not show that one causes the other)
+2. What happened to patients after the study ended? (we don't know about later outcomes.)
 
 ```
 ### 3. Choose a mark
-
-Geom, map mark, or (later) test that matches the pair type. Name it before you code.
+histogram, bargraph, box plot, scatter plots 
 
 ### 4. Predict
-
-What do we think we will see? One sentence, before Run.
+we predited that due to smoking, as people grow older thier chances od death is higher than younger onces 
 
 ### 5. Make
-These first few charts are what I want to check out. I may/will not have these charts in the final rendered Quarto, but want to comment on findings if needed. If any chart is surprising, it stays.
+These first few charts are what I want to check out. I may/will not have these charts in the final rendered Quarto, but want to comment on findings if needed. If any chart is surprising, it stays. 
+We have decided on choosing graph 2 as our final graph and therefore we did the t-test for it as well.
 
 1.
 ```{r}
@@ -160,10 +159,10 @@ A |> ggplot(aes(x = ejection_fraction, y = time, color = DEATH_EVENT)) +
 # ours
 ```
 ### 6. Say
-Patients who died were older on average (about 65 years) than those who survived (about 59). The difference of roughly 6.5 years is statistically significant (t = -4.19, p= 4.735e-05 (0.00004735), p < 0.001)
+Patients who died were older on average (about 65 years) than those who survived (about 59). The difference of roughly 6.5 years is statistically significant (t = -4.19, p= 4.735e-05 (0.00004735), p < 0.001) 
 
 ### 7. Limit
-What this panel cannot do. Which kit table we refused to abuse.
+We can see patterns in who died, but we cannot say what caused the deaths or whether these patterns apply to everyone with heart failure.
 
 
 
@@ -180,9 +179,56 @@ skim(B)
 ### 1. See the table
 
 What is a case? Which columns are Quant / Qual? What is missing?
+                   
+### 2. Ask
+1. Were immigrants more likely to grow up in a low-income family?
+Immigrants and low income at 16 (shown through education) 
+2. Does education differ between people who grew up low-income and those who didn't?
+Education and low income at 16
+3. Does growing up low-income relate to number of kids? (Main Character)
+4. Do people with more education have fewer kids?
+5. Do immigrants have a different number of kids? 
+6. How many years of education do people have?
 
-``` r
-# glimpse() / inspect() / skim()
+
+### 5. Make
+We have decided on choosing graph 1 and 5 as our final graph and therefore we did the mosaic graph for it as well.
+
+1.
+```{r}
+B |> gf_bar(~ immigrant, fill = ~ lowincome16, position = "fill") |> gf_labs(title = "Share who grew up low-income, by immigrant status", x = "Immigrant", y = "Proportion", fill = "Low income at 16")
+```
+```{r}
+vcd::structable( lowincome16 ~ immigrant, data=B) |> vcd:: mosaic()
+vcd::structable(lowincome16 ~ immigrant, data = B) |> vcd::mosaic(type = "expected")
+mosaic::xchisq.test(lowincome16~ immigrant, data = B)
+```
+
+2. 
+```{r}
+B |>
+  group_by(lowincome16) |>
+  summarize(mean_edu = mean(education)) |>
+  gf_col(mean_edu ~ lowincome16, fill = ~ lowincome16) |>
+  gf_labs(title = "Average years of education by low income at 16",
+          x = "Low income at 16", y = "Mean years of education")
+```
+3.
+```{r}
+ggplot(B, aes(x = kids, fill = lowincome16)) +
+  geom_bar(position = "dodge")
+```
+
+4.
+```{r}
+ggplot(B, aes(x = education, fill = factor(kids))) +
+  geom_bar()
+```
+
+5.
+```{r}
+ggplot(B, aes(x = kids, fill = immigrant)) +
+  geom_bar(position = "dodge")
 ```
 ```{r}
 vcd::structable(kids ~ immigrant, data=B) |> vcd:: mosaic()
@@ -192,28 +238,10 @@ vcd::structable(kids ~ immigrant, data = B) |> vcd::mosaic(type = "expected")
 mosaic::xchisq.test(kids~ immigrant, data = B)
 ```
 
-### 2. Ask
-
-One question *this* table can answer. One it cannot. Write both.
-
-### 3. Choose a mark
-
-Geom, map mark, or (later) test that matches the pair type. Name it before you code.
-
-### 4. Predict
-
-What do we think we will see? One sentence, before Run.
-
-### 5. Make
-
-Human brick first. Optional: one AI prompt, pasted below, only for what section 3 named.
-
-``` r
-# human chunk
-
-# ## Prompt we actually used
-# ai_draft
-# ours
+6. 
+```{r}
+ggplot(B, aes(x = education)) +
+  geom_bar()
 ```
 
 ### 6. Say

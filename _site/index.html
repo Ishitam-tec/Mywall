@@ -646,18 +646,17 @@ $ DEATH_EVENT              &lt;chr&gt; "yes", "yes", "yes", "yes", "yes", "yes",
 </section>
 <section id="ask" class="level3">
 <h3 class="anchored" data-anchor-id="ask">2. Ask</h3>
-<p>Possibly can answer: 1.Who smokes more, male or female? 2.How does the age distribution differ between patients who survived and patients who died? 3.Is the blood pressure of people who die higer or lower than the people who live 4. Do patients with anaemia die more often? 5. Does sodium level in the blood differ between patients who survived and died? 6. Is there a difference in heart-damage between diabetics and non-diabetics? 7. Is High blood pressure affected by age? 8.Does a weaker heart mean patients don’t survive as long?</p>
-<p>Possibly cannot answer: 1.Does getting older cause death in heart failure patients? (The data does not show that one causes the other) 2.What happened to patients after the study ended? (we don’t know about later outcomes.)</p>
+<p>Possibly can answer: 1. Who smokes more, male or female? 2. How does the age distribution differ between patients who survived and patients who died? 3. Is the blood pressure of people who die higer or lower than the people who live 4. Do patients with anaemia die more often? 5. Does sodium level in the blood differ between patients who survived and died? 6. Is there a difference in heart-damage between diabetics and non-diabetics? 7. Is High blood pressure affected by age? 8. Does a weaker heart mean patients don’t survive as long?</p>
+<p>Possibly cannot answer: 1. Does getting older cause death in heart failure patients? (The data does not show that one causes the other) 2. What happened to patients after the study ended? (we don’t know about later outcomes.)</p>
 <pre><code>### 3. Choose a mark
-
-Geom, map mark, or (later) test that matches the pair type. Name it before you code.
+histogram, bargraph, box plot, scatter plots 
 
 ### 4. Predict
-
-What do we think we will see? One sentence, before Run.
+we predited that due to smoking, as people grow older thier chances od death is higher than younger onces 
 
 ### 5. Make
-These first few charts are what I want to check out. I may/will not have these charts in the final rendered Quarto, but want to comment on findings if needed. If any chart is surprising, it stays.
+These first few charts are what I want to check out. I may/will not have these charts in the final rendered Quarto, but want to comment on findings if needed. If any chart is surprising, it stays. 
+We have decided on choosing graph 2 as our final graph and therefore we did the t-test for it as well.
 
 1.
 
@@ -911,10 +910,10 @@ sample estimates:
 <section id="ours" class="level1">
 <h1>ours</h1>
 <pre><code>### 6. Say
-Patients who died were older on average (about 65 years) than those who survived (about 59). The difference of roughly 6.5 years is statistically significant (t = -4.19, p= 4.735e-05 (0.00004735), p &lt; 0.001)
+Patients who died were older on average (about 65 years) than those who survived (about 59). The difference of roughly 6.5 years is statistically significant (t = -4.19, p= 4.735e-05 (0.00004735), p &lt; 0.001) 
 
 ### 7. Limit
-What this panel cannot do. Which kit table we refused to abuse.
+We can see patterns in who died, but we cannot say what caused the deaths or whether these patterns apply to everyone with heart failure.
 
 
 
@@ -1112,9 +1111,26 @@ $ immigrant   &lt;chr&gt; "no", "no", "yes", "no", "no", "no", "no", "yes", "yes
 <section id="see-the-table-1" class="level3">
 <h3 class="anchored" data-anchor-id="see-the-table-1">1. See the table</h3>
 <p>What is a case? Which columns are Quant / Qual? What is missing?</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse() / inspect() / skim()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ask-1" class="level3">
+<h3 class="anchored" data-anchor-id="ask-1">2. Ask</h3>
+<ol type="1">
+<li>Were immigrants more likely to grow up in a low-income family? Immigrants and low income at 16 (shown through education)</li>
+<li>Does education differ between people who grew up low-income and those who didn’t? Education and low income at 16</li>
+<li>Does growing up low-income relate to number of kids? (Main Character)</li>
+<li>Do people with more education have fewer kids?</li>
+<li>Do immigrants have a different number of kids?</li>
+<li>How many years of education do people have?</li>
+</ol>
+</section>
+<section id="make" class="level3">
+<h3 class="anchored" data-anchor-id="make">5. Make</h3>
+<p>We have decided on choosing graph 1 and 5 as our final graph and therefore we did the mosaic graph for it as well.</p>
+<ol type="1">
+<li></li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>vcd<span class="sc">::</span><span class="fu">structable</span>(kids <span class="sc">~</span> immigrant, <span class="at">data=</span>B) <span class="sc">|&gt;</span> vcd<span class="sc">::</span> <span class="fu">mosaic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>B <span class="sc">|&gt;</span> <span class="fu">gf_bar</span>(<span class="sc">~</span> immigrant, <span class="at">fill =</span> <span class="sc">~</span> lowincome16, <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">|&gt;</span> <span class="fu">gf_labs</span>(<span class="at">title =</span> <span class="st">"Share who grew up low-income, by immigrant status"</span>, <span class="at">x =</span> <span class="st">"Immigrant"</span>, <span class="at">y =</span> <span class="st">"Proportion"</span>, <span class="at">fill =</span> <span class="st">"Low income at 16"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1124,7 +1140,7 @@ $ immigrant   &lt;chr&gt; "no", "no", "yes", "no", "no", "no", "no", "yes", "yes
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>vcd<span class="sc">::</span><span class="fu">structable</span>(kids <span class="sc">~</span> immigrant, <span class="at">data =</span> B) <span class="sc">|&gt;</span> vcd<span class="sc">::</span><span class="fu">mosaic</span>(<span class="at">type =</span> <span class="st">"expected"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>vcd<span class="sc">::</span><span class="fu">structable</span>( lowincome16 <span class="sc">~</span> immigrant, <span class="at">data=</span>B) <span class="sc">|&gt;</span> vcd<span class="sc">::</span> <span class="fu">mosaic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1132,7 +1148,119 @@ $ immigrant   &lt;chr&gt; "no", "no", "yes", "no", "no", "no", "no", "yes", "yes
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mosaic<span class="sc">::</span><span class="fu">xchisq.test</span>(kids<span class="sc">~</span> immigrant, <span class="at">data =</span> B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>vcd<span class="sc">::</span><span class="fu">structable</span>(lowincome16 <span class="sc">~</span> immigrant, <span class="at">data =</span> B) <span class="sc">|&gt;</span> vcd<span class="sc">::</span><span class="fu">mosaic</span>(<span class="at">type =</span> <span class="st">"expected"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mosaic<span class="sc">::</span><span class="fu">xchisq.test</span>(lowincome16<span class="sc">~</span> immigrant, <span class="at">data =</span> B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  x
+X-squared = 0.016678, df = 1, p-value = 0.8972
+
+  6394      788  
+(6396.07) ( 785.92)
+[0.00039] [0.00316]
+&lt;-0.026&gt; &lt; 0.074&gt;
+   
+  1728      210  
+(1725.92) ( 212.07)
+[0.00144] [0.01170]
+&lt; 0.050&gt; &lt;-0.142&gt;
+   
+key:
+    observed
+    (expected)
+    [contribution to X-squared]
+    &lt;Pearson residual&gt;</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>B <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(lowincome16) <span class="sc">|&gt;</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_edu =</span> <span class="fu">mean</span>(education)) <span class="sc">|&gt;</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_col</span>(mean_edu <span class="sc">~</span> lowincome16, <span class="at">fill =</span> <span class="sc">~</span> lowincome16) <span class="sc">|&gt;</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gf_labs</span>(<span class="at">title =</span> <span class="st">"Average years of education by low income at 16"</span>,</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">"Low income at 16"</span>, <span class="at">y =</span> <span class="st">"Mean years of education"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(B, <span class="fu">aes</span>(<span class="at">x =</span> kids, <span class="at">fill =</span> lowincome16)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(B, <span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">fill =</span> <span class="fu">factor</span>(kids))) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(B, <span class="fu">aes</span>(<span class="at">x =</span> kids, <span class="at">fill =</span> immigrant)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>vcd<span class="sc">::</span><span class="fu">structable</span>(kids <span class="sc">~</span> immigrant, <span class="at">data=</span>B) <span class="sc">|&gt;</span> vcd<span class="sc">::</span> <span class="fu">mosaic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>vcd<span class="sc">::</span><span class="fu">structable</span>(kids <span class="sc">~</span> immigrant, <span class="at">data =</span> B) <span class="sc">|&gt;</span> vcd<span class="sc">::</span><span class="fu">mosaic</span>(<span class="at">type =</span> <span class="st">"expected"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>mosaic<span class="sc">::</span><span class="fu">xchisq.test</span>(kids<span class="sc">~</span> immigrant, <span class="at">data =</span> B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -1192,27 +1320,20 @@ key:
     &lt;Pearson residual&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="ask-1" class="level3">
-<h3 class="anchored" data-anchor-id="ask-1">2. Ask</h3>
-<p>One question <em>this</em> table can answer. One it cannot. Write both.</p>
-</section>
-<section id="choose-a-mark" class="level3">
-<h3 class="anchored" data-anchor-id="choose-a-mark">3. Choose a mark</h3>
-<p>Geom, map mark, or (later) test that matches the pair type. Name it before you code.</p>
-</section>
-<section id="predict" class="level3">
-<h3 class="anchored" data-anchor-id="predict">4. Predict</h3>
-<p>What do we think we will see? One sentence, before Run.</p>
-</section>
-<section id="make" class="level3">
-<h3 class="anchored" data-anchor-id="make">5. Make</h3>
-<p>Human brick first. Optional: one AI prompt, pasted below, only for what section 3 named.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># human chunk</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Prompt we actually used</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ai_draft</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ours</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="6" type="1">
+<li></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(B, <span class="fu">aes</span>(<span class="at">x =</span> education)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="say" class="level3">
 <h3 class="anchored" data-anchor-id="say">6. Say</h3>
@@ -1227,7 +1348,7 @@ key:
 <h1>Panel C — place</h1>
 <p><em>Asia-only lifeExp / gdpPercap / pop. Join to rnaturalearth; unmatched names are a brick.</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 33
 Columns: 6
@@ -1240,7 +1361,7 @@ $ gdpPercap &lt;dbl&gt; 974.5803, 29796.0483, 1391.2538, 1713.7787, 4959.1149, 3
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -1418,35 +1539,35 @@ $ gdpPercap &lt;dbl&gt; 974.5803, 29796.0483, 1391.2538, 1713.7787, 4959.1149, 3
 </div>
 </div>
 <p>Geometry is not in the CSV. Join in R, then use the same seven headings.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(sf)</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(rnaturalearth)</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co"># world &lt;- ne_countries(scale = "medium", returnclass = "sf")</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # join on country name; list the unmatched labels</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(sf)</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(rnaturalearth)</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="co"># world &lt;- ne_countries(scale = "medium", returnclass = "sf")</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># # join on country name; list the unmatched labels</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="see-the-table-2" class="level3">
 <h3 class="anchored" data-anchor-id="see-the-table-2">1. See the table</h3>
 <p>What is a case? Which columns are Quant / Qual? What is missing?</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse() / inspect() / skim()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># glimpse() / inspect() / skim()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ask-2" class="level3">
 <h3 class="anchored" data-anchor-id="ask-2">2. Ask</h3>
 <p>One question <em>this</em> table can answer. One it cannot. Write both.</p>
 </section>
-<section id="choose-a-mark-1" class="level3">
-<h3 class="anchored" data-anchor-id="choose-a-mark-1">3. Choose a mark</h3>
+<section id="choose-a-mark" class="level3">
+<h3 class="anchored" data-anchor-id="choose-a-mark">3. Choose a mark</h3>
 <p>Geom, map mark, or (later) test that matches the pair type. Name it before you code.</p>
 </section>
-<section id="predict-1" class="level3">
-<h3 class="anchored" data-anchor-id="predict-1">4. Predict</h3>
+<section id="predict" class="level3">
+<h3 class="anchored" data-anchor-id="predict">4. Predict</h3>
 <p>What do we think we will see? One sentence, before Run.</p>
 </section>
 <section id="make-1" class="level3">
 <h3 class="anchored" data-anchor-id="make-1">5. Make</h3>
 <p>Human brick first. Optional: one AI prompt, pasted below, only for what section 3 named.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># human chunk</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Prompt we actually used</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ai_draft</span></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ours</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># human chunk</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Prompt we actually used</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ai_draft</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ours</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="say-1" class="level3">
 <h3 class="anchored" data-anchor-id="say-1">6. Say</h3>
@@ -1467,7 +1588,7 @@ $ gdpPercap &lt;dbl&gt; 974.5803, 29796.0483, 1391.2538, 1713.7787, 4959.1149, 3
 <li>Limits: sample, missingness, the test we did not run</li>
 <li>Gift for the steal-this strip (palette, annotation, join trick)</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sessionInfo()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sessionInfo()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
