@@ -70,8 +70,7 @@ Possibly can answer:
 5. Does sodium level in the blood differ between patients who survived and died?
 6. Is there a difference in heart-damage between diabetics and non-diabetics?
 7. Is High blood pressure affected by age?
-8.Is there a statistically significant relationship between age and death outcome?
-9.Does a weaker heart mean patients don't survive as long?
+8.Does a weaker heart mean patients don't survive as long?
 
 Possibly cannot answer:
 1.Does getting older cause death in heart failure patients? (The data does not show that one causes the other)
@@ -147,8 +146,6 @@ A |> ggplot(aes(x = high_blood_pressure, y = age)) +
   geom_boxplot()
 ```
 
-8.Is there a statistically significant relationship between age and death outcome?
-
 9.
 ```{r}
 A |> ggplot(aes(x = ejection_fraction, y = time)) +geom_point()
@@ -186,6 +183,13 @@ What is a case? Which columns are Quant / Qual? What is missing?
 
 ``` r
 # glimpse() / inspect() / skim()
+```
+```{r}
+vcd::structable(kids ~ immigrant, data=B) |> vcd:: mosaic()
+```
+```{r}
+vcd::structable(kids ~ immigrant, data = B) |> vcd::mosaic(type = "expected")
+mosaic::xchisq.test(kids~ immigrant, data = B)
 ```
 
 ### 2. Ask
